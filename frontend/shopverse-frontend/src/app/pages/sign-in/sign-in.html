@@ -3,14 +3,30 @@
     <h1>ShopVerse</h1>
     <p class="subtitle">Welcome back! Sign in to your account.</p>
 
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <label>Email Address</label>
-      <input type="email" placeholder="Enter your email" required>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Enter your email"
+        required
+      >
 
       <label>Password</label>
-      <input type="password" placeholder="Enter your password" required>
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Enter your password"
+        required
+      >
 
-      <button type="submit">Sign In</button>
+      <p *ngIf="message" class="error">{{ message }}</p>
+
+      <button type="submit" [disabled]="isLoading">
+        {{ isLoading ? 'Signing In...' : 'Sign In' }}
+      </button>
     </form>
 
     <p class="switch">

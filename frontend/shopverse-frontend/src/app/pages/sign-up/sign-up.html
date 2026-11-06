@@ -3,24 +3,47 @@
     <h1>ShopVerse</h1>
     <p class="subtitle">Create an account to get started.</p>
 
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <label>Full Name</label>
-      <input type="text" placeholder="Enter your full name" required>
+      <input
+        type="text"
+        name="fullName"
+        [(ngModel)]="fullName"
+        placeholder="Enter your full name"
+        required
+      >
 
       <label>Email Address</label>
-      <input type="email" placeholder="Enter your email" required>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Enter your email"
+        required
+      >
 
       <label>Password</label>
-      <input type="password" placeholder="Create a password" required>
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Create a password"
+        minlength="8"
+        required
+      >
 
       <label>Gender</label>
-      <select required>
+      <select name="gender" [(ngModel)]="gender" required>
         <option value="">Select gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
       </select>
 
-      <button type="submit">Create Account</button>
+      <p class="error" *ngIf="message">{{ message }}</p>
+
+      <button type="submit" [disabled]="isLoading">
+        {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+      </button>
     </form>
 
     <p class="switch">
