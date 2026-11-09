@@ -1,0 +1,48 @@
+<main class="account-page">
+  <section class="account-card">
+    <h1>ShopVerse</h1>
+
+    <p class="subtitle">My account</p>
+
+    <p
+      *ngIf="isLoading"
+      class="status"
+      role="status"
+    >
+      Loading your account…
+    </p>
+
+    <div *ngIf="user as account">
+      <h2>Welcome, {{ account.fullName }}!</h2>
+
+      <dl>
+        <dt>Email address</dt>
+        <dd>{{ account.email }}</dd>
+      </dl>
+    </div>
+
+    <div
+      *ngIf="!isLoading && errorMessage"
+      class="error-box"
+      role="alert"
+    >
+      <p>{{ errorMessage }}</p>
+
+      <button
+        type="button"
+        class="retry-button"
+        (click)="loadProfile()"
+      >
+        Try Again
+      </button>
+    </div>
+
+    <button
+      type="button"
+      class="sign-out-button"
+      (click)="signOut()"
+    >
+      Sign Out
+    </button>
+  </section>
+</main>

@@ -11,6 +11,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/sign-up/sign-up').then(m => m.SignUp)
   },
+   {
+    path: 'account',
+    loadComponent: () =>
+      import('./pages/account/account').then(m => m.Account)
+  },
   {
     path: '',
     redirectTo: 'sign-in',

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
 
 @Component({
@@ -16,7 +16,11 @@ export class SignIn {
   message = '';
   isLoading = false;
 
-  constructor(private auth: Auth) {}
+  constructor(
+    private auth: Auth,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+  ) {}
 
   onSubmit() {
     this.message = '';
@@ -28,11 +32,16 @@ export class SignIn {
     }).subscribe({
       next: (response) => {
         this.isLoading = false;
+        this.cdr.markForCheck();
+
         localStorage.setItem('accessToken', response.accessToken);
-        this.message = 'Login successful! Welcome to ShopVerse.';
+
+        this.router.navigate(['/account']);
       },
       error: (error) => {
         this.isLoading = false;
+        this.cdr.markForCheck();
+
         this.message =
           error.error?.message || 'Login failed. Please check your details.';
       },
